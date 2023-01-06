@@ -1,18 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CoachGround</title>
-</head>
-<body>
-    <a href="/coachgrounds/new">ADD A COACH-GROUND</a>
-    <h1>All CoachGrounds</h1>
+<% layout('layouts/boilerplate') %>
+
+<h1>All CoachGrounds</h1>
     <ul>
         <% for(let coachground of coachgrounds) { %>
-            <li> <a href="/coachgrounds/<%=coachground._id%>"><%=coachground.title%> </a> </li>
+            <div class="card" mb-3>
+                  <div class="row">
+                    <div class="col-md-4">
+                        <img class="img-fluid" alt="" src="<%=coachground.image%>">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= coachground.title %> </h5>
+                            <p class="card-text">
+                                <%= coachground.description %> 
+                            </p>
+                            <p class="card-text">
+                                <small class="text-muted"><%=coachground.location %> </small>
+                            </p>
+                            <a href="/coachgrounds/<%=coachground._id %> " class="btn btn-primary">View <%= coachground.title %></a>
+                        </div>
+                    </div>
+                  </div>
+            </div>
         <% } %>
     </ul>
-</body>
-</html>

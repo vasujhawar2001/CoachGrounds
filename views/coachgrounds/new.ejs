@@ -1,23 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New CoachGround</title>
-</head>
-<body>
-    <form action="/coachgrounds" method="POST">
-        <div>
-            <label for="title">Title:</label>
-            <input type="text" id="title" name="coachground[title]">
-        </div>
-        <div>
-            <label for="location">Location:</label>
-            <input type="text" id="location" name="coachground[location]">
-        </div>
-        <button>Add CoachGround</button>
-    </form>
-    <a href="/coachgrounds">Cancel</a>
-</body>
-</html>
+<% layout('layouts/boilerplate') %>
+
+<div class="row">
+    <h1 class="text-center">
+        New CoachGround
+    </h1>
+    <div class="col-6 offset-3">
+        <form action="/coachgrounds" method="POST" class="validated-form" novalidate>
+            <div class="mb-3">
+                <label for="title" class="form-label">Title:</label>
+                <input type="text" id="title" name="coachground[title]" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="location" class="form-label">Location:</label>
+                <input type="text" id="location" name="coachground[location]" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="image" class="form-label">Image url</label>
+                <input type="text" id="image" name="coachground[image]" class="form-control" required>
+                <div class="invalid-feedback">
+                    Please enter correct URL
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="price" class="form-label">Price</label>
+                <div class="input-group mb-3">
+                        <span class="input-group-text" id="price-label">$</span>
+                        <input type="number" required step="0.01" class="form-control" id="price" name="coachground[price]" placeholder="0.00" aria-label="price" aria-describedby="price-label">
+                </div>    
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea type="text" required id="description" name="coachground[description]" class="form-control"></textarea>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-success">Add CoachGround</button>
+            </div>
+
+        </form>
+        <a href="/coachgrounds">Cancel</a>
+    </div>
+</div>
+

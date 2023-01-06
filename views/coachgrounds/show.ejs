@@ -1,20 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Show</title>
-</head>
-<body>
-    <h1> <%=coachground.title%> </h1>
-    <h4> <%=coachground.location%> </h4>
-    <p><a href="/coachgrounds/<%=coachground._id%>/edit">Edit</a></p>
-    <p>
-        <form action="/coachgrounds/<%=coachground._id%>?_method=DELETE" method="POST">
-            <button>DELETE ME!</button>
-        </form>
-    </p>
-    <a href="/coachgrounds">All CoachGrounds</a>
-</body>
-</html>
+<% layout('layouts/boilerplate') %>
+
+
+
+  <div class="row">
+    <div class="col-6 offser-3">
+        <div class="card mb-5">
+            <img src="<%=coachground.image%>" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title"><%=coachground.title%></h5>
+              <p class="card-text"><%=coachground.description%> </p>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item text-muted"><%=coachground.location%></li>
+              <li class="list-group-item">$<%= coachground.price %> </li>
+            </ul>
+            <div class="card-body">
+                <a class="card-link btn btn-info" href="/coachgrounds/<%=coachground._id%>/edit">Edit</a>
+                <form class="d-inline" action="/coachgrounds/<%=coachground._id%>?_method=DELETE" method="POST">
+                    <button class="class-link btn btn-danger">Delete</button>
+                </form>
+            </div>
+            <div class="card-footer text-muted bg-light">
+                2 days ago
+              </div>
+          </div>
+    </div>
+
+  </div>
+
