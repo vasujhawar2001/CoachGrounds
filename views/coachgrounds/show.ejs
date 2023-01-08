@@ -3,7 +3,7 @@
 
 
   <div class="row">
-    <div class="col-6 offser-3">
+    <div class="col-6 mt-3 mb-2">
         <div class="card mb-5">
             <img src="<%=coachground.image%>" class="card-img-top" alt="...">
             <div class="card-body">
@@ -24,7 +24,42 @@
                 2 days ago
               </div>
           </div>
+
+
+    </div>
+    <div class="col-5 offset-1 mt-3">
+      <h3>Leave a Review</h3>
+      <form action="/coachgrounds/<%=coachground._id%>/reviews" class="mb-3 validated-form" method="POST" novalidate>
+        <div class="mb-3">
+          <div class="mb-3">
+            <label class="form-label" for="rating">Rating</label>
+            <input class="form-range" type="range" min="1" max="5" name="review[rating]" id="rating">
+          </div>
+          <div class="mb-3">
+          <label class="form-label" for="body">Review</label>
+          <textarea class="form-control" name="review[body]" id="body" cols="30" rows="3" required></textarea>
+          </div>
+          <button class="btn btn-success">Submit</button>
+        </div>
+      </form>
+      <% for(let review of coachground.reviews){  %> 
+        <div class="card mb-3">
+          <div class="card-header">
+            ///username///
+          </div>
+          <div class="card-body d-flex">
+            <div class="blockquote mb-0 col-11">
+              <p><%= review.body %></p>
+              <footer class="blockquote-footer">Rated: <%= review.rating %>/5</footer>
+            </div>
+            <div class="align-self-end col-1">
+            <form action="/coachgrounds/<%=coachground._id%>/reviews/<%=review._id%>?_method=DELETE" method="POST">
+                <button class="btn btn-danger btn-sm mt-1 align-self-end">Delete</button>
+            </form>
+            </div>
+          </div>
+        </div>
+        <% } %> 
     </div>
 
   </div>
-

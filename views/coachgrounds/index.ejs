@@ -1,9 +1,9 @@
 <% layout('layouts/boilerplate') %>
 
-<h1>All CoachGrounds</h1>
+<h1 class="display-3 text-center mb-4">CoachGrounds</h1>
     <ul>
         <% for(let coachground of coachgrounds) { %>
-            <div class="card" mb-3>
+            <div class="card mb-3" >
                   <div class="row">
                     <div class="col-md-4">
                         <img class="img-fluid" alt="" src="<%=coachground.image%>">
