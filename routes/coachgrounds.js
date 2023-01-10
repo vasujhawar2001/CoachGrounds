@@ -4,6 +4,7 @@ const wrapAsync = require('../utilities/wrapAsync.js')
 const ExpressError = require('../utilities/ExpressError')
 const CoachGround = require('../models/coachground.js')
 const {coachgroundSchema} = require('../schemas.js')
+const isLoggedIn = require('../middleware.js')
 
 const validateCoachground = (req,res,next) => {
     //}
@@ -25,11 +26,11 @@ router.get('/', async(req,res)=>{
 })
 
 
-router.get('/new', (req,res)=>{
+router.get('/new', isLoggedIn, (req,res)=>{
     res.render('coachgrounds/new');
 })
 
-router.post('/', validateCoachground, wrapAsync(async(req,res, next)=>{
+router.post('/', validateCoachground, isLoggedIn, wrapAsync(async(req,res, next)=>{
     //if(!req.body.coachground){
       //  throw new ExpressError('Invalid Data', 400);
     const coachground = new CoachGround(req.body.coachground);
@@ -48,7 +49,7 @@ router.get('/:id', wrapAsync(async (req,res)=>{
     res.render('coachgrounds/show', {coachground})
 }))
 
-router.get('/:id/edit', wrapAsync(async (req,res)=>{
+router.get('/:id/edit', isLoggedIn, wrapAsync(async (req,res)=>{
     const {id} = req.params;
     const coachground = await CoachGround.findById(id);
     if(!coachground){
@@ -58,7 +59,7 @@ router.get('/:id/edit', wrapAsync(async (req,res)=>{
     res.render('coachgrounds/edit', {coachground})
 }))
 
-router.put('/:id', validateCoachground, wrapAsync(async (req,res)=>{
+router.put('/:id', validateCoachground, isLoggedIn, wrapAsync(async (req,res)=>{
     const {id} = req.params;
     const coachground = await CoachGround.findByIdAndUpdate(id, {...req.body.coachground});
     req.flash('success', 'Successfully Updated!')
@@ -66,7 +67,7 @@ router.put('/:id', validateCoachground, wrapAsync(async (req,res)=>{
 }
 ));
 
-router.delete('/:id', wrapAsync(async(req,res)=>{
+router.delete('/:id', isLoggedIn, wrapAsync(async(req,res)=>{
     const {id} =  req.params;
     await CoachGround.findByIdAndDelete(id);
     req.flash('success', 'Successfully Deleted!!')

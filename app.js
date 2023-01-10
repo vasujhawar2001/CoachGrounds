@@ -11,7 +11,12 @@ const flash = require('connect-flash')
 const joi = require('joi')
 const {coachgroundSchema, reviewSchema} = require('./schemas.js')
 const wrapAsync = require('./utilities/wrapAsync.js')
-const ExpressError = require('./utilities/ExpressError.js')
+const ExpressError = require('./utilities/ExpressError.js');
+const passport = require('passport');
+const LocalStrategy = require('passport-local')
+const User = require('./models/user.js')
+
+const userRoutes = require('./routes/users')
 const coachgroundRoutes = require("./routes/coachgrounds");
 const reviewsRoutes = require("./routes/reviews");
 
@@ -47,12 +52,22 @@ const sessionConfig = {
 app.use(session(sessionConfig));
 app.use(flash());
 
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()))
+
+passport.serializeUser(User.serializeUser())
+passport.deserializeUser(User.deserializeUser()) 
+
 app.use((req,res,next)=>{
+    //console.log(req.session)
+    res.locals.currentUser = req.user;
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     next();
 })
 
+app.use('/', userRoutes)
 app.use('/coachgrounds', coachgroundRoutes)
 app.use('/coachgrounds/:id/reviews', reviewsRoutes)
 
