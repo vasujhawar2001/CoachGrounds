@@ -22,6 +22,7 @@ const seedDB = async()=>{
     const random200 = Math.floor(Math.random()*200);
     const price = (Math.random()*20+10).toFixed(2);
     const ground = new CoachGround({
+        author: '63bbd710127df890964ad2ba',
         location: `${cities[random200].city}, ${cities[random200].state}`,
         title: `${sample(descriptors)} ${sample(places)}`,
         image: 'https://source.unsplash.com/random',
