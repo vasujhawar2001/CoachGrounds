@@ -8,7 +8,7 @@ const isLoggedIn = (req, res, next) => {
     if(!req.isAuthenticated()){
         //check the url they are requesting
         //console(req.path,req.originalUrl)
-        req.session.returnTo = req.originalUrl
+        //req.session.returnTo = req.originalUrl --> added the return to feature to the app.js middleware
         req.flash('error', 'PLease Sign In first.');
         return res.redirect('/login');
     }
@@ -38,10 +38,13 @@ const validateCoachground = (req,res,next) => {
    }
 
    const validateReview = (req,res,next) =>{
+    const {id} = req.params;
     const {error} = reviewSchema.validate(req.body);
     if(error){
-        const msg = error.details.map(el=> el.message).join(',')
-        throw new ExpressError(msg, 400)
+        if(req.body.review.rating < 1){
+            req.flash('error', 'Please give a rating.')
+            return res.redirect(`/coachgrounds/${id}`);
+        }
     }
     else{
         next();

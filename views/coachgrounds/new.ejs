@@ -5,7 +5,7 @@
         New CoachGround
     </h1>
     <div class="col-6 offset-3">
-        <form action="/coachgrounds" method="POST" class="validated-form" novalidate>
+        <form action="/coachgrounds" method="POST" class="validated-form" novalidate enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="title" class="form-label">Title:</label>
                 <input type="text" id="title" name="coachground[title]" class="form-control" maxlength="30" required>
@@ -15,12 +15,17 @@
                 <input type="text" id="location" name="coachground[location]" class="form-control" required>
             </div>
             <div class="mb-3">
+                <label for="image" class="form-label">Add Images</label>
+                <input class="form-control" type="file" id="image" name="image" multiple>
+            </div>
+            <!-- <input type="file" name="image" id="" multiple> -->
+            <!-- <div class="mb-3">
                 <label for="image" class="form-label">Image url</label>
                 <input type="text" id="image" name="coachground[image]" class="form-control" required>
                 <div class="invalid-feedback">
                     Please enter correct URL
                 </div>
-            </div>
+            </div> -->
             <div class="mb-3">
                 <label for="price" class="form-label">Price</label>
                 <div class="input-group mb-3">

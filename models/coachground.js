@@ -2,9 +2,15 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const Review = require('./review')
 
+//cloudinary url
 const CoachgroundSchema = new Schema({
     title:String,
-    image:String,
+    images:[
+        {
+            url:String,
+            filename:String
+        }
+    ],
     price:Number,
     description:String,
     location:String,
@@ -19,6 +25,10 @@ const CoachgroundSchema = new Schema({
         }
     ]
 })
+
+CoachgroundSchema.path('images').schema.virtual('thumbnail').get(function() {
+    return this.url.replace('/upload/', '/upload/w_300/');
+});
 
 CoachgroundSchema.post('findOneAndDelete', async(doc)=>{
     if(doc){

@@ -2,10 +2,10 @@
 
     <div class="row">
         <h1 class="text-center">
-            New CoachGround
+            Edit CoachGround
         </h1>
         <div class="col-6 offset-3">
-            <form action="/coachgrounds/<%=coachground._id%>?_method=PUT" method="POST" novalidate class="validated-form">
+            <form action="/coachgrounds/<%=coachground._id%>?_method=PUT" method="POST" novalidate class="validated-form" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label for="title" class="form-label">Title:</label>
                     <input type="text" id="title" name="coachground[title]" class="form-control" value="<%=coachground.title%>" required>
@@ -13,10 +13,6 @@
                 <div class="mb-3">
                     <label for="location" class="form-label">Location:</label>
                     <input type="text" id="location" name="coachground[location]" class="form-control" value="<%=coachground.location%>" required>
-                </div>
-                <div class="mb-3">
-                    <label for="image" class="form-label">Image url</label>
-                    <input type="text" id="iamge" name="coachground[image]" class="form-control" value="<%=coachground.image%>" required>
                 </div>
                 <div class="mb-3">
                     <label for="price" class="form-label">Price</label>
@@ -28,6 +24,27 @@
                 <div class="mb-3">
                     <label for="description" class="form-label">Description</label>
                     <textarea required type="text" id="description" name="coachground[description]" class="form-control"><%=coachground.description %></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="image" class="form-label">Add More Images</label>
+                    <input class="form-control" type="file" id="image" name="image" multiple>
+                </div>
+                <div class="mb-3">
+                    <h6>Delete Images: </h6>
+                    <div class="row row-cols-1 row-cols-md-4 g-4 mb-3">
+                        <% coachground.images.forEach((image, i) => { %>
+                        <div class="col">
+                            <div class="card">
+                                <label for="image-<%= i %>"><img class="card-img" src="<%= image.thumbnail %>" alt="">
+                                    <div class="card-img-overlay text-end pt-1 pe-2">
+                                        <input class="form-check-input" type="checkbox" name="deleteImages[]"
+                                            value="<%= image.filename %>" id="image-<%= i %>">
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        <% }) %>
+                    </div>
                 </div>
                 <div class="mb-3">
                     <button class="btn btn-info">Update CoachGround</button>
