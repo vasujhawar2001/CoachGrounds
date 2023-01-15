@@ -2,7 +2,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const Review = require('./review')
 
-//cloudinary url
+//cloudinary url- IMAGE LINK FROM CLUDINARY DASHBOARD CHEKITOUT FOR REFERENCE
+const opts = {toJSON: {virtuals:true}};
+
 const CoachgroundSchema = new Schema({
     title:String,
     images:[
@@ -35,11 +37,16 @@ const CoachgroundSchema = new Schema({
             ref:'Review'
         }
     ]
-})
+}, opts);
 
 CoachgroundSchema.path('images').schema.virtual('thumbnail').get(function() {
     return this.url.replace('/upload/', '/upload/w_300/');
 });
+
+CoachgroundSchema.virtual('properties.popUpHTML').get(function(user) {
+    return `<a href=/coachgrounds/${this._id}>${this.title}</a>`;
+});
+
 
 CoachgroundSchema.post('findOneAndDelete', async(doc)=>{
     if(doc){

@@ -12,6 +12,6 @@ const marker1 = new mapboxgl.Marker({ color: 'red'})
 .setLngLat(Coachground.geometry.coordinates)
 .setPopup(
     new mapboxgl.Popup({ closeOnClick: false })
-    .setHTML(`<h2>${Coachground.title}</h2><h6>${Coachground.location}</h6>`)
+    .setHTML(`<h5>${Coachground.title}</h5><p>${Coachground.location}</p>`)
 )
 .addTo(map);

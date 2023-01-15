@@ -83,7 +83,7 @@ app.use('/coachgrounds/:id/reviews', reviewsRoutes)
 
 app.get('/', (req,res)=>{
     //res.send("hello from homepage!")
-    res.redirect('coachgrounds')
+    res.render('home.ejs')
 })
 
 app.all('*', (req,res,next)=>{

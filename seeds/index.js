@@ -18,12 +18,12 @@ const sample = array => array[Math.floor(Math.random()* array.length)]
 
 const seedDB = async()=>{
     await CoachGround.deleteMany({});
-    for(let i=0; i<40;i++){
+    for(let i=0; i<100;i++){
     const random200 = Math.floor(Math.random()*200);
     const price = (Math.random()*20+10).toFixed(2);
     const ground = new CoachGround({
         author: '63bbd710127df890964ad2ba',
-        location: 'Bhopal, Madhya Pradesh', //`${cities[random200].city}, ${cities[random200].state}`,
+        location: `${cities[random200].city}, ${cities[random200].state}`,
         title: `${sample(descriptors)} ${sample(places)}`,
         images: [
             {
@@ -51,7 +51,7 @@ const seedDB = async()=>{
         price: price,
         geometry:{
           type:'Point',
-          coordinates:[77.4126, 23.2599]
+          coordinates:[cities[random200].longitude, cities[random200].latitude]
         }
      })   
      await ground.save();
