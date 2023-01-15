@@ -7,6 +7,7 @@ const map = new mapboxgl.Map({
   zoom: 11, // starting zoom
 });
 
+map.addControl(new mapboxgl.NavigationControl(), 'bottom-left')
 // Create a default Marker and add it to the map.
 const marker1 = new mapboxgl.Marker({ color: 'red'})
 .setLngLat(Coachground.geometry.coordinates)

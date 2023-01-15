@@ -1,12 +1,14 @@
 // refered mapbox docs for creating clusters
 mapboxgl.accessToken = mapToken;
 const map = new mapboxgl.Map({
-    container: 'map',
+    container: 'cluster-map',
     // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
-    style: 'mapbox://styles/mapbox/dark-v11',
-    center: [77.4, 23.7],
-    zoom: 3
+    style: 'mapbox://styles/mapbox/light-v11', // styles dark-v11 , streets-v11, light-v11
+    center: [78.9629, 20.59],
+    zoom: 3.5
 });
+
+
 
 map.on('load', () => {
     // Add a new source from our GeoJSON data and
@@ -46,10 +48,10 @@ map.on('load', () => {
                 'step',
                 ['get', 'point_count'],
                 20,
-                100,
+                75,
                 30,
-                750,
-                40
+                500,
+                20
             ]
         }
     });
