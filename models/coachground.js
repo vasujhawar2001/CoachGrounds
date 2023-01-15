@@ -11,6 +11,17 @@ const CoachgroundSchema = new Schema({
             filename:String
         }
     ],
+    geometry:{
+        type:{
+            type:String,   // DOnt do {geometry:{typr:String}},
+            enum:['Point'], // 'geometry.type must be a point
+            required:true
+        },
+        coordinates:{
+            type:[Number],
+            required:true
+        }
+    },
     price:Number,
     description:String,
     location:String,

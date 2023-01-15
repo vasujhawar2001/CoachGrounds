@@ -1,5 +1,8 @@
 const CoachGround = require('../models/coachground');
-const {cloudinary} = require('../cloudinary/index.js')
+const {cloudinary} = require('../cloudinary/index.js');
+const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
+const mapBoxToken = process.env.MAPBOX_TOKEN;
+const geocoder = mbxGeocoding({accessToken:mapBoxToken});
 
 module.exports.index = async (req, res) => {
     const coachgrounds = await CoachGround.find({});
@@ -11,14 +14,22 @@ module.exports.renderNewForm = (req, res) => {
 }
 
 module.exports.createCoachground = async (req, res, next) => {
-        //if(!req.body.coachground){
-      //  throw new ExpressError('Invalid Data', 400);
+    //if(!req.body.coachground){
+    //  throw new ExpressError('Invalid Data', 400);
 
+    const geoData = await geocoder.forwardGeocode({
+        query: req.body.coachground.location,
+        limit:1
+    }).send();
+
+    // [longitude latitude]
+    // console.log(geoData.body.features[0].geometry.coordinates);
     const coachground = new CoachGround(req.body.coachground);
+    coachground.geometry = geoData.body.features[0].geometry;
     coachground.images = req.files.map(f=>({url:f.path,filename:f.filename}))
     coachground.author = req.user._id;
     await coachground.save();
-    console.log(coachground)
+    //console.log(coachground)
     req.flash('success', 'Successfully made a new coachground!');
     res.redirect(`/coachgrounds/${coachground._id}`)
 }

@@ -23,7 +23,7 @@ const seedDB = async()=>{
     const price = (Math.random()*20+10).toFixed(2);
     const ground = new CoachGround({
         author: '63bbd710127df890964ad2ba',
-        location: `${cities[random200].city}, ${cities[random200].state}`,
+        location: 'Bhopal, Madhya Pradesh', //`${cities[random200].city}, ${cities[random200].state}`,
         title: `${sample(descriptors)} ${sample(places)}`,
         images: [
             {
@@ -48,7 +48,11 @@ const seedDB = async()=>{
               }
         ],
         description: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Earum obcaecati commodi dolorem voluptatum minus explicabo unde harum labore dignissimos adipisci. Quia consectetur laudantium velit excepturi assumenda dolorem sapiente voluptatum optio. Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem corporis vitae cum perferendis nisi voluptates magni ab animi rerum quaerat temporibus sit commodi ullam beatae tempora necessitatibus esse, officiis distinctio.',
-        price: price
+        price: price,
+        geometry:{
+          type:'Point',
+          coordinates:[77.4126, 23.2599]
+        }
      })   
      await ground.save();
     }

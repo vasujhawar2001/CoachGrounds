@@ -6,22 +6,22 @@
   <div class="col-6 mt-3 mb-2">
     <div id="coachgroundCarousel" class="carousel slide" data-ride="carousel">
       <div class="carousel-inner">
-          <% coachground.images.forEach((img, i) => { %>
-          <div class="carousel-item <%= i === 0 ? 'active' : ''%>">
-              <img src="<%= img.url%>" class="d-block w-100" alt="">
-          </div>
-          <% }) %>
-   
+        <% coachground.images.forEach((img, i) => { %>
+        <div class="carousel-item <%= i === 0 ? 'active' : ''%>">
+          <img src="<%= img.url%>" class="d-block w-100" alt="">
+        </div>
+        <% }) %>
+
       </div>
       <% if(coachground.images.length > 1) { %>
       <a class="carousel-control-prev" href="#coachgroundCarousel" role="button" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
       </a>
       <a class="carousel-control-next" href="#coachgroundCarousel" role="button" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
       </a>
       <% } %>
-  </div>
+    </div>
     <div class="card mb-5">
       <div class="card-body">
         <h5 class="card-title"><%=coachground.title%></h5>
@@ -42,6 +42,9 @@
       <div class="card-footer text-muted bg-light">
         Posted by <strong><%=coachground.author.username %></strong>
       </div>
+
+      <div id='map' style='width: auto; height: 300px;'></div>
+
     </div>
 
 
@@ -57,7 +60,8 @@
               <input class="form-range" type="range" min="1" max="5" name="review[rating]" id="rating">
             </div> -->
           <fieldset class="starability-slot">
-            <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="0" checked aria-label="No rating." />
+            <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="0" checked
+              aria-label="No rating." />
             <input type="radio" id="first-rate1" name="review[rating]" value="1" />
             <label for="first-rate1" title="Terrible">1 star</label>
             <input type="radio" id="first-rate2" name="review[rating]" value="2" />
@@ -107,3 +111,10 @@
 </div>
 
 </div>
+
+<script>
+  const mapToken = '<%-process.env.MAPBOX_TOKEN%>';
+  const coachground = '<%-JSON.stringify(coachground)%>';
+</script>
+
+<script src="/javascripts/showPageMap.js"></script>
