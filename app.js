@@ -47,13 +47,15 @@ app.use(express.static(path.join(__dirname, 'public')))
 //do not let include other query string from req.query ?$gt='sssdsdscvfgdh'
 app.use(mongoSanitize({}));
 
+const secret= process.env.SECRET || "thisissecret";
+
 const sessionConfig = {
     store: MongoStore.create({
         mongoUrl: dbUrl,
         touchAfter: 24 * 3600 // time period in seconds
       }),
     name:'session',
-    secret:"thisissecret",
+    secret,
     resave:false,
     saveUninitialized:true,
     cookie:{
