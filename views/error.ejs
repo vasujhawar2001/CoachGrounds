@@ -1,12 +1,14 @@
 <% layout('layouts/boilerplate') %>
 
 <div class="row">
-  <div class="col-7 offset-2 mt-5">
+  <div class="col-6 offset-3 mt-5">
     <div class="alert alert-danger" role="alert">
       <h4 class="alert-heading">OH OH!</h4>
       <h2><%=err.message%></h2> 
       <hr>
+      <%if(process.env.NODE_ENV !== "production") {%> 
       <p class="mb-1"><%=err.stack%> </p>
+      <% } %> 
     </div>
   
   </div>
