@@ -26,7 +26,8 @@ const MongoStore = require("connect-mongo");
 
 app.engine('ejs', ejsMate)
 
-const dbUrl = "mongodb://localhost:27017/coach-ground";  //const dbUrl = process.env.DB_URL; -> FOR PRODUCTION USE
+const dbUrl = process.env.DB_URL;
+
 mongoose.set('strictQuery', false);
 
 mongoose.connect(dbUrl, {useNewUrlParser: true, useUnifiedTopology: true});  
